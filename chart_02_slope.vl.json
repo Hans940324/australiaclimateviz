@@ -1,0 +1,68 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 480,
+  "height": 460,
+  "background": "#fafaf7",
+  "data": {"url": "../data/city_slope.csv"},
+  "layer": [
+    {
+      "mark": {"type": "line", "size": 2.2, "opacity": 0.85},
+      "encoding": {
+        "x": {
+          "field": "period",
+          "type": "nominal",
+          "sort": ["2005-2009", "2020-2024"],
+          "title": null,
+          "axis": {"labelFontSize": 13, "labelFontWeight": "bold", "labelPadding": 8, "orient": "bottom"}
+        },
+        "y": {
+          "field": "tmean",
+          "type": "quantitative",
+          "title": "Annual mean temperature (°C)",
+          "scale": {"domain": [11, 29], "zero": false, "nice": false},
+          "axis": {"labelFontSize": 11, "titleFontSize": 12, "grid": false, "orient": "left"}
+        },
+        "detail": {"field": "city"},
+        "color": {"value": "#ADD8E6"}
+      }
+    },
+    {
+      "mark": {"type": "point", "size": 110, "filled": true, "stroke": "#fafaf7", "strokeWidth": 1.5},
+      "encoding": {
+        "x": {"field": "period", "type": "nominal", "sort": ["2005-2009", "2020-2024"]},
+        "y": {"field": "tmean", "type": "quantitative"},
+        "color": {"value": "#ADD8E6"},
+        "tooltip": [
+          {"field": "city", "type": "nominal"},
+          {"field": "period", "type": "nominal"},
+          {"field": "tmean", "type": "quantitative", "title": "Mean (°C)", "format": ".2f"}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.period == '2005-2009'"}],
+      "mark": {"type": "text", "align": "right", "dx": -10, "fontSize": 12, "fontWeight": "bold"},
+      "encoding": {
+        "x": {"field": "period", "type": "nominal", "sort": ["2005-2009", "2020-2024"]},
+        "y": {"field": "tmean", "type": "quantitative"},
+        "text": {"field": "city", "type": "nominal"},
+        "color": {"value": "#ADD8E6"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.period == '2020-2024'"}],
+      "mark": {"type": "text", "align": "left", "dx": 10, "fontSize": 12, "fontWeight": "bold"},
+      "encoding": {
+        "x": {"field": "period", "type": "nominal", "sort": ["2005-2009", "2020-2024"]},
+        "y": {"field": "tmean", "type": "quantitative"},
+        "text": {"field": "tmean", "type": "quantitative", "format": ".2f"},
+        "color": {"value": "#ADD8E6"}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "font": "system-ui, -apple-system, Segoe UI, sans-serif",
+    "axis": {"domainColor": "#888", "tickColor": "#888"}
+  }
+}
